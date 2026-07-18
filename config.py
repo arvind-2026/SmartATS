@@ -34,6 +34,8 @@ ALLOWED_FILE_TYPES = ["pdf", "docx", "txt"]
 MAX_FILE_SIZE_MB = 5
 MINIMUM_TEXT_LENGTH = 100
 MAX_FILES_PER_BATCH = 50
+BYTES_PER_MB = 1024 * 1024
+FILE_NAME_SEPARATOR = "."
 
 
 # SBERT settings
@@ -112,3 +114,5 @@ EMPTY_FILE_MESSAGE = "The uploaded file is empty."
 CORRUPT_FILE_MESSAGE = "The file is damaged or cannot be read."
 SCANNED_FILE_MESSAGE = "This may be a scanned PDF that requires OCR."
 LOW_TEXT_MESSAGE = "Only a small amount of readable text was found."
+TOO_LARGE_FILE_MESSAGE = "The uploaded file is larger than the allowed limit."
+TOO_MANY_FILES_MESSAGE = "Too many resumes were uploaded at one time."
