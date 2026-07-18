@@ -1,0 +1,2 @@
+"""SmartATS automated tests."""
+
