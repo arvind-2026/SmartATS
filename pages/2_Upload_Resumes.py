@@ -1,6 +1,8 @@
 import streamlit as st
 
 import config
+from modules.education_matcher import match_education
+from modules.experience_matcher import match_experience
 from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
 from modules.resume_extractor import extract_resume_text
@@ -146,5 +148,45 @@ else:
                             + str(preferred_result["percentage"])
                             + "%"
                         )
+
+                    experience_text = section_result["sections"].get(
+                        "experience",
+                        clean_text,
+                    )
+                    experience_result = match_experience(
+                        current_job["required_experience"],
+                        experience_text,
+                    )
+                    result["experience_result"] = experience_result
+
+                    st.markdown("#### Experience evidence")
+                    st.write(experience_result["message"])
+
+                    if experience_result["evidence"]:
+                        st.write(
+                            "Detected date or duration evidence: "
+                            + ", ".join(experience_result["evidence"])
+                        )
+
+                    education_text = section_result["sections"].get(
+                        "education",
+                        clean_text,
+                    )
+                    education_result = match_education(
+                        current_job["required_education"],
+                        education_text,
+                    )
+                    result["education_result"] = education_result
+
+                    st.markdown("#### Education evidence")
+                    st.write(education_result["status"])
+                    st.write(
+                        "Required level: "
+                        + (education_result["required_level"] or "Not determined")
+                    )
+                    st.write(
+                        "Detected level: "
+                        + (education_result["detected_level"] or "Not detected")
+                    )
                 else:
                     st.error(result["message"])

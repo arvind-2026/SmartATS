@@ -51,7 +51,8 @@ def get_skill_names(skill, aliases):
 def text_contains_skill(text, skill_name):
     """Check for a complete skill name rather than a partial word match."""
 
-    escaped_skill = re.escape(skill_name)
+    normal_skill_name = normalise_skill(skill_name)
+    escaped_skill = re.escape(normal_skill_name)
     pattern = r"(?<!\w)" + escaped_skill + r"(?!\w)"
 
     return re.search(pattern, text.lower()) is not None
@@ -128,4 +129,3 @@ def match_job_skills(required_skills, preferred_skills, resume_text):
         "required": required_result,
         "preferred": preferred_result,
     }
-

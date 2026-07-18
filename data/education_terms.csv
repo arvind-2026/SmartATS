@@ -1,7 +1,20 @@
 term,education_level
+Bachelor's degree,Bachelor
+Bachelor’s degree,Bachelor
+Bachelor,Bachelor
 B.Tech,Bachelor
 B.E.,Bachelor
 B.Sc.,Bachelor
+BA,Bachelor
+BCA,Bachelor
+Master's degree,Master
+Master’s degree,Master
+Master,Master
 M.Tech,Master
 MCA,Master
-
+M.Sc.,Master
+MBA,Master
+Ph.D.,Doctorate
+PhD,Doctorate
+Doctorate,Doctorate
+Diploma,Diploma
