@@ -1,4 +1,5 @@
 from io import BytesIO
+import logging
 
 import pdfplumber
 from docx import Document
@@ -6,6 +7,11 @@ from pypdf import PdfReader
 
 import config
 from modules.file_validator import get_file_extension
+
+
+# Some valid PDFs have incomplete font metadata. Hide those library warnings
+# while keeping errors and SmartATS extraction-quality checks visible.
+logging.getLogger(config.PDF_FONT_LOGGER_NAME).setLevel(config.PDF_FONT_LOG_LEVEL)
 
 
 def extract_txt_text(file_bytes):

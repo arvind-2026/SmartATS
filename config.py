@@ -38,6 +38,8 @@ BYTES_PER_MB = 1024 * 1024
 FILE_NAME_SEPARATOR = "."
 TEXT_ENCODINGS = ["utf-8", "latin-1"]
 TEXT_PREVIEW_HEIGHT = 250
+PDF_FONT_LOGGER_NAME = "pdfminer.pdffont"
+PDF_FONT_LOG_LEVEL = "ERROR"
 MINIMUM_COLUMN_SPLIT_PERCENT = 25
 MAXIMUM_COLUMN_SPLIT_PERCENT = 75
 COLUMN_SCAN_STEP_PERCENT = 2
@@ -47,6 +49,7 @@ MINIMUM_WORDS_PER_COLUMN_PERCENT = 20
 GUTTER_CHECK_WIDTH_PERCENT = 2
 MAXIMUM_GUTTER_WORD_PERCENT = 4
 MAXIMUM_CROSSING_WORD_PERCENT = 2
+MAXIMUM_BLANK_LINES = 1
 
 
 # SBERT settings
@@ -92,6 +95,73 @@ REVIEW_STATUSES = [
     "Needs review",
     "Not selected",
 ]
+
+
+# Resume section names and common heading alternatives
+SECTION_HEADINGS = {
+    "summary": [
+        "summary",
+        "profile",
+        "professional summary",
+        "career objective",
+        "objective",
+    ],
+    "skills": [
+        "skills",
+        "technical skills",
+        "core skills",
+        "key skills",
+        "competencies",
+    ],
+    "experience": [
+        "experience",
+        "work experience",
+        "professional experience",
+        "employment history",
+        "work history",
+    ],
+    "projects": [
+        "projects",
+        "academic projects",
+        "personal projects",
+        "project experience",
+    ],
+    "education": [
+        "education",
+        "academic background",
+        "academic qualifications",
+        "qualifications",
+    ],
+    "certifications": [
+        "certifications",
+        "certificates",
+        "courses",
+        "training",
+    ],
+    "achievements": [
+        "achievements",
+        "awards",
+        "awards and achievements",
+        "honours",
+        "honors",
+    ],
+    "languages": [
+        "languages",
+        "language proficiency",
+        "known languages",
+    ],
+    "strengths": [
+        "strengths",
+        "key strengths",
+        "personal strengths",
+    ],
+    "interests": [
+        "interests",
+        "areas of interest",
+        "hobbies and interests",
+        "hobbies",
+    ],
+}
 
 
 # Job form settings
