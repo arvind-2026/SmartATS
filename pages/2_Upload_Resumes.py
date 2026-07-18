@@ -3,6 +3,7 @@ import streamlit as st
 import config
 from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
+from modules.resume_extractor import extract_resume_text
 
 
 st.title("Upload Resumes")
@@ -49,5 +50,41 @@ else:
                 + str(len(uploaded_files))
             )
 
-            st.caption("Text extraction will be added in the next project step.")
+            extract_button = st.button(
+                "Extract resume text",
+                disabled=len(valid_files) == 0,
+            )
 
+            if extract_button:
+                extraction_results = []
+
+                for valid_file in valid_files:
+                    result = extract_resume_text(
+                        valid_file.name,
+                        valid_file.getvalue(),
+                    )
+                    extraction_results.append(result)
+
+                st.session_state["extraction_results"] = extraction_results
+
+    if "extraction_results" in st.session_state:
+        st.subheader("Extraction results")
+
+        for result in st.session_state["extraction_results"]:
+            with st.expander(result["file_name"], expanded=True):
+                st.write("Extraction quality: " + result["quality"])
+
+                if result["success"]:
+                    if result["quality"] == "Low":
+                        st.warning(result["message"])
+                    else:
+                        st.success(result["message"])
+
+                    st.text_area(
+                        "Extracted text preview",
+                        value=result["text"],
+                        height=config.TEXT_PREVIEW_HEIGHT,
+                        key="preview_" + result["file_name"],
+                    )
+                else:
+                    st.error(result["message"])

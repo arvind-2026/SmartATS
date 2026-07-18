@@ -36,6 +36,17 @@ MINIMUM_TEXT_LENGTH = 100
 MAX_FILES_PER_BATCH = 50
 BYTES_PER_MB = 1024 * 1024
 FILE_NAME_SEPARATOR = "."
+TEXT_ENCODINGS = ["utf-8", "latin-1"]
+TEXT_PREVIEW_HEIGHT = 250
+MINIMUM_COLUMN_SPLIT_PERCENT = 25
+MAXIMUM_COLUMN_SPLIT_PERCENT = 75
+COLUMN_SCAN_STEP_PERCENT = 2
+PERCENT_DIVISOR = 100
+MINIMUM_WORDS_FOR_COLUMN_CHECK = 20
+MINIMUM_WORDS_PER_COLUMN_PERCENT = 20
+GUTTER_CHECK_WIDTH_PERCENT = 2
+MAXIMUM_GUTTER_WORD_PERCENT = 4
+MAXIMUM_CROSSING_WORD_PERCENT = 2
 
 
 # SBERT settings
@@ -116,3 +127,5 @@ SCANNED_FILE_MESSAGE = "This may be a scanned PDF that requires OCR."
 LOW_TEXT_MESSAGE = "Only a small amount of readable text was found."
 TOO_LARGE_FILE_MESSAGE = "The uploaded file is larger than the allowed limit."
 TOO_MANY_FILES_MESSAGE = "Too many resumes were uploaded at one time."
+PASSWORD_FILE_MESSAGE = "The PDF is password-protected. Please upload an unlocked copy."
+EXTRACTION_SUCCESS_MESSAGE = "Resume text extracted successfully."
