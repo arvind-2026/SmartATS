@@ -81,6 +81,28 @@ REVIEW_STATUSES = [
 ]
 
 
+# Job form settings
+JOB_ID_PREFIX = "JOB"
+JOB_ID_DIGITS = 3
+MINIMUM_JOB_DESCRIPTION_LENGTH = 50
+SKILL_SEPARATOR = ","
+
+JOB_CSV_HEADERS = [
+    "job_id",
+    "job_title",
+    "job_description",
+    "required_skills",
+    "preferred_skills",
+    "required_experience",
+    "required_education",
+    "semantic_weight",
+    "skill_weight",
+    "project_weight",
+    "experience_weight",
+    "education_weight",
+]
+
+
 # User messages
 RESPONSIBLE_AI_MESSAGE = (
     "SmartATS supports human review. It does not automatically hire or reject candidates."
@@ -90,4 +112,3 @@ EMPTY_FILE_MESSAGE = "The uploaded file is empty."
 CORRUPT_FILE_MESSAGE = "The file is damaged or cannot be read."
 SCANNED_FILE_MESSAGE = "This may be a scanned PDF that requires OCR."
 LOW_TEXT_MESSAGE = "Only a small amount of readable text was found."
-
