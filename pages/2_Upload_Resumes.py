@@ -5,6 +5,7 @@ from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
 from modules.resume_extractor import extract_resume_text
 from modules.section_detector import detect_sections
+from modules.skill_matcher import match_job_skills
 from modules.text_cleaner import clean_resume_text
 
 
@@ -95,6 +96,13 @@ else:
                     result["clean_text"] = clean_text
                     result["sections"] = section_result["sections"]
 
+                    skill_result = match_job_skills(
+                        current_job["required_skills"],
+                        current_job["preferred_skills"],
+                        clean_text,
+                    )
+                    result["skill_result"] = skill_result
+
                     if section_result["uses_paragraph_analysis"]:
                         st.info(
                             "No clear section headings were detected. "
@@ -105,5 +113,38 @@ else:
                             section_result["detected_headings"]
                         )
                         st.write("Detected sections: " + heading_text)
+
+                    st.markdown("#### Required skill evidence")
+                    required_result = skill_result["required"]
+
+                    st.write(
+                        "Required skill match: "
+                        + str(required_result["percentage"])
+                        + "%"
+                    )
+
+                    if required_result["evidence"]:
+                        for evidence in required_result["evidence"]:
+                            st.success(
+                                evidence["skill"]
+                                + " — Evidence: "
+                                + evidence["evidence"]
+                            )
+
+                    if required_result["missing_skills"]:
+                        missing_text = ", ".join(
+                            required_result["missing_skills"]
+                        )
+                        st.warning("Not detected: " + missing_text)
+
+                    preferred_result = skill_result["preferred"]
+
+                    if current_job["preferred_skills"]:
+                        st.markdown("#### Preferred skills")
+                        st.write(
+                            "Preferred skill match: "
+                            + str(preferred_result["percentage"])
+                            + "%"
+                        )
                 else:
                     st.error(result["message"])
