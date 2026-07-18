@@ -172,6 +172,12 @@ SKILL_SEPARATOR = ","
 EVIDENCE_SENTENCE_SEPARATORS = ["\n", ".", ";"]
 MONTHS_PER_YEAR = 12
 ROUND_SCORE_DIGITS = 2
+MINIMUM_REQUIREMENT_LENGTH = 20
+MINIMUM_RESUME_CHUNK_LENGTH = 15
+MAXIMUM_JOB_REQUIREMENTS = 20
+MAXIMUM_RESUME_CHUNKS = 150
+SEMANTIC_EXCLUDED_SECTIONS = ["projects"]
+SBERT_PROGRESS_BAR = False
 
 MONTH_NAMES = {
     "jan": 1,
@@ -237,3 +243,4 @@ TOO_LARGE_FILE_MESSAGE = "The uploaded file is larger than the allowed limit."
 TOO_MANY_FILES_MESSAGE = "Too many resumes were uploaded at one time."
 PASSWORD_FILE_MESSAGE = "The PDF is password-protected. Please upload an unlocked copy."
 EXTRACTION_SUCCESS_MESSAGE = "Resume text extracted successfully."
+MODEL_LOADING_MESSAGE = "Loading the SBERT model and comparing semantic meaning..."

@@ -7,12 +7,21 @@ from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
 from modules.resume_extractor import extract_resume_text
 from modules.section_detector import detect_sections
+from modules.semantic_matcher import load_sbert_model
+from modules.semantic_matcher import match_semantic_requirements
 from modules.skill_matcher import match_job_skills
 from modules.text_cleaner import clean_resume_text
 
 
 st.title("Upload Resumes")
 st.write("Upload candidate resumes for the selected job.")
+
+
+@st.cache_resource
+def get_cached_sbert_model():
+    """Load SBERT once and reuse it for all uploaded resumes."""
+
+    return load_sbert_model()
 
 if "current_job" not in st.session_state:
     st.warning("Create or select a job before uploading resumes.")
@@ -188,5 +197,47 @@ else:
                         "Detected level: "
                         + (education_result["detected_level"] or "Not detected")
                     )
+
+                    semantic_button = st.button(
+                        "Run semantic analysis",
+                        key="semantic_" + result["file_name"],
+                    )
+
+                    semantic_key = "semantic_result_" + result["file_name"]
+
+                    if semantic_button:
+                        with st.spinner(config.MODEL_LOADING_MESSAGE):
+                            model = get_cached_sbert_model()
+                            semantic_result = match_semantic_requirements(
+                                current_job["job_description"],
+                                section_result["sections"],
+                                clean_text,
+                                model,
+                            )
+                            st.session_state[semantic_key] = semantic_result
+
+                    if semantic_key in st.session_state:
+                        semantic_result = st.session_state[semantic_key]
+                        result["semantic_result"] = semantic_result
+                        st.markdown("#### Semantic evidence")
+                        st.write(
+                            "Semantic match: "
+                            + str(semantic_result["percentage"])
+                            + "%"
+                        )
+
+                        for evidence in semantic_result["evidence"]:
+                            st.write("**Job requirement:** " + evidence["requirement"])
+                            st.write(
+                                "**Résumé evidence:** "
+                                + evidence["resume_evidence"]
+                            )
+                            st.caption(
+                                evidence["label"]
+                                + " match — "
+                                + str(evidence["similarity"])
+                                + "%"
+                            )
+                            st.divider()
                 else:
                     st.error(result["message"])
