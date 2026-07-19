@@ -1,6 +1,6 @@
 # SmartATS
 
-SmartATS is a AI Resume Screening and Applicant Tracking
+SmartATS is a beginner-friendly AI Resume Screening and Applicant Tracking
 System. It compares resume evidence with a confirmed job description using
 Sentence-BERT and transparent rule-based matching.
 

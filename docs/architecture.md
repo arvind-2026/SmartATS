@@ -4,7 +4,8 @@
 
 SmartATS uses small Python modules with one clear purpose. Streamlit pages handle
 user interaction, while modules handle validation, extraction, matching, scoring,
-charts and CSV storage.
+charts and CSV storage. The project intentionally avoids custom classes, type
+hints, JSON and SQL so that a Python beginner can understand the code.
 
 ## Data flow
 
