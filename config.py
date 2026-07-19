@@ -140,9 +140,42 @@ CHART_COLOR_PRIMARY = "#2563EB"
 CHART_COLOR_SUCCESS = "#16A34A"
 CHART_COLOR_WARNING = "#F59E0B"
 CHART_COLOR_DANGER = "#DC2626"
+MATPLOTLIB_BACKEND = "Agg"
 CHART_WIDTH = 10
 CHART_HEIGHT = 6
 MAX_CANDIDATES_IN_CHART = 10
+ALL_FILTER_OPTION = "All"
+MINIMUM_DASHBOARD_SCORE = 0
+MAXIMUM_DASHBOARD_SCORE = 100
+DASHBOARD_SCORE_STEP = 5
+CSV_EXPORT_FILE_NAME = "candidate_ranking.csv"
+
+DASHBOARD_SCORE_FIELDS = [
+    "semantic_score",
+    "skill_score",
+    "project_score",
+    "experience_score",
+    "education_score",
+    "overall_score",
+]
+
+DASHBOARD_TABLE_COLUMNS = [
+    "rank",
+    "candidate_id",
+    "candidate_name",
+    "candidate_email",
+    "candidate_phone",
+    "overall_score",
+    "semantic_score",
+    "skill_score",
+    "project_score",
+    "experience_score",
+    "education_score",
+    "matched_skills",
+    "missing_skills",
+    "extraction_quality",
+    "review_status",
+]
 
 REVIEW_STATUSES = [
     "Not reviewed",

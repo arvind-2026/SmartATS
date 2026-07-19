@@ -170,3 +170,49 @@ def save_semantic_evidence(candidate_id, evidence_items):
             config.SEMANTIC_EVIDENCE_CSV_HEADERS,
             row,
         )
+
+
+def convert_text_to_list(text):
+    """Convert a semicolon-separated CSV cell back into a Python list."""
+
+    if not text:
+        return []
+
+    return [item.strip() for item in text.split(";") if item.strip()]
+
+
+def load_candidates():
+    """Load saved candidate results with numeric scores and skill lists."""
+
+    candidates = []
+
+    if not config.CANDIDATES_FILE.exists():
+        return candidates
+
+    with open(
+        config.CANDIDATES_FILE,
+        "r",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            if not row.get("candidate_id"):
+                continue
+
+            for score_field in config.DASHBOARD_SCORE_FIELDS:
+                try:
+                    row[score_field] = float(row.get(score_field, 0))
+                except ValueError:
+                    row[score_field] = 0
+
+            row["matched_skills"] = convert_text_to_list(
+                row.get("matched_skills", "")
+            )
+            row["missing_skills"] = convert_text_to_list(
+                row.get("missing_skills", "")
+            )
+            candidates.append(row)
+
+    return candidates
