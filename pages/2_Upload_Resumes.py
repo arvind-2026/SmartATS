@@ -2,11 +2,13 @@ import streamlit as st
 
 import config
 from modules.education_matcher import match_education
+from modules.explanation_builder import build_score_explanation
 from modules.experience_matcher import match_experience
 from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
 from modules.project_matcher import match_projects
 from modules.resume_extractor import extract_resume_text
+from modules.score_calculator import calculate_final_score
 from modules.section_detector import detect_sections
 from modules.semantic_matcher import load_sbert_model
 from modules.semantic_matcher import match_semantic_requirements
@@ -230,6 +232,20 @@ else:
                             project_key = "project_result_" + result["file_name"]
                             st.session_state[project_key] = project_result
 
+                            component_percentages = {
+                                "semantic": semantic_result["percentage"],
+                                "skills": required_result["percentage"],
+                                "projects": project_result["percentage"],
+                                "experience": experience_result["percentage"],
+                                "education": education_result["percentage"],
+                            }
+                            score_result = calculate_final_score(
+                                component_percentages,
+                                current_job,
+                            )
+                            score_key = "score_result_" + result["file_name"]
+                            st.session_state[score_key] = score_result
+
                     if semantic_key in st.session_state:
                         semantic_result = st.session_state[semantic_key]
                         result["semantic_result"] = semantic_result
@@ -298,5 +314,42 @@ else:
 
                         if not project_result["relevance_evidence"]:
                             st.info(project_result["message"])
+
+                    score_key = "score_result_" + result["file_name"]
+
+                    if score_key in st.session_state:
+                        score_result = st.session_state[score_key]
+                        result["score_result"] = score_result
+                        st.markdown("### Final explainable ATS score")
+
+                        if score_result["success"]:
+                            st.metric(
+                                "Overall score",
+                                str(score_result["overall_score"]) + "%",
+                            )
+                            st.write("Match category: " + score_result["category"])
+                            explanations = build_score_explanation(score_result)
+
+                            for explanation in explanations:
+                                st.write(
+                                    "**"
+                                    + explanation["label"]
+                                    + ":** "
+                                    + explanation["calculation"]
+                                )
+
+                            points_text = " + ".join(
+                                str(item["points"])
+                                for item in score_result["components"]
+                            )
+                            st.info(
+                                "Overall score = "
+                                + points_text
+                                + " = "
+                                + str(score_result["overall_score"])
+                            )
+                            st.caption(config.RESPONSIBLE_AI_MESSAGE)
+                        else:
+                            st.error(score_result["message"])
                 else:
                     st.error(result["message"])

@@ -67,11 +67,44 @@ DEFAULT_EXPERIENCE_WEIGHT = 10
 DEFAULT_EDUCATION_WEIGHT = 5
 TOTAL_SCORE_WEIGHT = 100
 
+SCORE_COMPONENTS = [
+    {
+        "key": "semantic",
+        "label": "Semantic similarity",
+        "weight_key": "semantic_weight",
+    },
+    {
+        "key": "skills",
+        "label": "Required skills",
+        "weight_key": "skill_weight",
+    },
+    {
+        "key": "projects",
+        "label": "Related projects",
+        "weight_key": "project_weight",
+    },
+    {
+        "key": "experience",
+        "label": "Experience",
+        "weight_key": "experience_weight",
+    },
+    {
+        "key": "education",
+        "label": "Education",
+        "weight_key": "education_weight",
+    },
+]
+
 
 # Overall score categories
 STRONG_SCORE_LIMIT = 80
 GOOD_SCORE_LIMIT = 65
 PARTIAL_SCORE_LIMIT = 50
+
+STRONG_SCORE_LABEL = "Strong match"
+GOOD_SCORE_LABEL = "Good match"
+PARTIAL_SCORE_LABEL = "Partial match"
+LOW_SCORE_LABEL = "Low match"
 
 
 # Project scoring settings
