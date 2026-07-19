@@ -1,0 +1,33 @@
+JUNIOR DATA ANALYST
+
+We are looking for a Junior Data Analyst who can turn business data into clear,
+accurate insights for operational and management decisions.
+
+KEY RESPONSIBILITIES
+
+- Clean, transform and analyse datasets using Python and pandas.
+- Write SQL queries to retrieve and combine relational data.
+- Build reports and dashboards using Microsoft Excel and Power BI.
+- Create clear data visualizations and explain important trends.
+- Apply basic statistics to check patterns and data quality.
+- Use Git to maintain analysis files and collaborate with teammates.
+- Document data definitions, assumptions and analytical findings.
+
+REQUIRED SKILLS
+
+Python, SQL, Microsoft Excel, Power BI, pandas, Data Visualization, Statistics, Git
+
+PREFERRED SKILLS
+
+Tableau, NumPy, scikit-learn
+
+EXPERIENCE
+
+At least 2 years of relevant data analysis, reporting or business intelligence
+experience. Internships and substantial project work may support junior candidates.
+
+EDUCATION
+
+Bachelor's degree in Statistics, Mathematics, Computer Science, Economics,
+Business Analytics or a related quantitative field.
+
