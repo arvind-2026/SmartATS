@@ -5,6 +5,7 @@ import matplotlib
 matplotlib.use(config.MATPLOTLIB_BACKEND)
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def create_candidate_score_chart(candidates):
@@ -99,6 +100,47 @@ def create_skill_availability_chart(candidates):
     axis.set_xlabel("Number of candidates")
     axis.bar_label(bars)
     axis.invert_yaxis()
+    figure.tight_layout()
+
+    return figure
+
+
+def create_component_comparison_chart(candidates):
+    """Create grouped bars comparing the five score components."""
+
+    chart_candidates = candidates[:config.MAX_CANDIDATES_IN_CHART]
+    candidate_names = [
+        candidate["candidate_name"] for candidate in chart_candidates
+    ]
+    positions = np.arange(len(candidate_names))
+    number_of_components = len(config.COMPONENT_CHART_FIELDS)
+    group_width = 0.8
+    bar_width = group_width / number_of_components
+
+    figure, axis = plt.subplots(
+        figsize=(config.CHART_WIDTH, config.CHART_HEIGHT)
+    )
+
+    for index in range(number_of_components):
+        field_name, label = config.COMPONENT_CHART_FIELDS[index]
+        scores = [candidate[field_name] for candidate in chart_candidates]
+        offset = (index - (number_of_components - 1) / 2) * bar_width
+        axis.bar(
+            positions + offset,
+            scores,
+            width=bar_width,
+            label=label,
+        )
+
+    axis.set_title("Candidate Component Score Comparison")
+    axis.set_ylabel("Component match (%)")
+    axis.set_ylim(
+        config.MINIMUM_DASHBOARD_SCORE,
+        config.MAXIMUM_DASHBOARD_SCORE,
+    )
+    axis.set_xticks(positions)
+    axis.set_xticklabels(candidate_names, rotation=45, ha="right")
+    axis.legend()
     figure.tight_layout()
 
     return figure

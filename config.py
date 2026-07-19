@@ -93,26 +93,31 @@ SCORE_COMPONENTS = [
         "key": "semantic",
         "label": "Semantic similarity",
         "weight_key": "semantic_weight",
+        "default_weight_key": "DEFAULT_SEMANTIC_WEIGHT",
     },
     {
         "key": "skills",
         "label": "Required skills",
         "weight_key": "skill_weight",
+        "default_weight_key": "DEFAULT_SKILL_WEIGHT",
     },
     {
         "key": "projects",
         "label": "Related projects",
         "weight_key": "project_weight",
+        "default_weight_key": "DEFAULT_PROJECT_WEIGHT",
     },
     {
         "key": "experience",
         "label": "Experience",
         "weight_key": "experience_weight",
+        "default_weight_key": "DEFAULT_EXPERIENCE_WEIGHT",
     },
     {
         "key": "education",
         "label": "Education",
         "weight_key": "education_weight",
+        "default_weight_key": "DEFAULT_EDUCATION_WEIGHT",
     },
 ]
 
@@ -157,6 +162,14 @@ DASHBOARD_SCORE_FIELDS = [
     "experience_score",
     "education_score",
     "overall_score",
+]
+
+COMPONENT_CHART_FIELDS = [
+    ("semantic_score", "Semantic"),
+    ("skill_score", "Skills"),
+    ("project_score", "Projects"),
+    ("experience_score", "Experience"),
+    ("education_score", "Education"),
 ]
 
 DASHBOARD_TABLE_COLUMNS = [

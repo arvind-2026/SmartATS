@@ -3,6 +3,7 @@ import streamlit as st
 
 import config
 from modules.chart_maker import create_candidate_score_chart
+from modules.chart_maker import create_component_comparison_chart
 from modules.chart_maker import create_score_distribution_chart
 from modules.chart_maker import create_skill_availability_chart
 from modules.csv_exporter import create_candidate_export
@@ -121,6 +122,7 @@ else:
 
         st.subheader("Score visualisations")
         st.pyplot(create_candidate_score_chart(filtered_candidates))
+        st.pyplot(create_component_comparison_chart(filtered_candidates))
         st.pyplot(create_score_distribution_chart(filtered_candidates))
 
         has_matched_skills = any(
@@ -137,4 +139,3 @@ else:
             file_name=config.CSV_EXPORT_FILE_NAME,
             mime="text/csv",
         )
-
