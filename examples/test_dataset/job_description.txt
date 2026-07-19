@@ -1,0 +1,27 @@
+JOB TITLE
+Junior Python Backend Developer
+
+JOB SUMMARY
+We are looking for a Junior Python Backend Developer to build, test and maintain reliable backend services and REST APIs. The candidate will work with senior engineers and product teams to deliver secure, maintainable applications.
+
+KEY RESPONSIBILITIES
+- Develop backend applications and REST APIs using Python.
+- Use FastAPI or Flask to create maintainable web services.
+- Design queries and data models for PostgreSQL or another relational database.
+- Write unit tests and troubleshoot application defects.
+- Use Git for version control and team collaboration.
+- Package and run services using Docker.
+- Document APIs and technical decisions.
+
+REQUIRED SKILLS
+Python, FastAPI, Flask, PostgreSQL, Git, Docker, REST API, Pytest
+
+PREFERRED SKILLS
+AWS, Redis, CI/CD, GitHub Actions
+
+EXPERIENCE
+Minimum 2 years of Python or backend software development experience.
+
+EDUCATION
+Bachelor's degree in Computer Science, Information Technology, Software Engineering or a related technical field.
+

@@ -104,3 +104,33 @@ def test_job_title_is_not_accepted_as_name():
     assert name == ""
     assert evidence == ""
     assert confidence == "Low"
+
+
+def test_detect_title_case_name_from_resume_header():
+    name, evidence, confidence = detect_name_from_header(
+        "Kabir Khan\nPython Programmer"
+    )
+
+    assert name == "Kabir Khan"
+    assert evidence == "Kabir Khan"
+    assert confidence == "High"
+
+
+def test_address_is_not_accepted_as_name():
+    name, evidence, confidence = detect_name_from_header(
+        "Ahmedabad, India\nROHAN MEHTA"
+    )
+
+    assert name == "ROHAN MEHTA"
+    assert evidence == "ROHAN MEHTA"
+    assert confidence == "High"
+
+
+def test_skill_line_is_not_accepted_before_uppercase_name():
+    name, evidence, confidence = detect_name_from_header(
+        "RM\nSKILLS\nREST APIs\nROHAN MEHTA"
+    )
+
+    assert name == "ROHAN MEHTA"
+    assert evidence == "ROHAN MEHTA"
+    assert confidence == "High"

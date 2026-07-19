@@ -63,15 +63,36 @@ def valid_name(name):
 
 
 def detect_name_from_header(text):
-    """Detect an all-caps name line near the top of a resume."""
+    """Detect an all-caps or title-case name near the top of a resume."""
 
     opening_text = get_opening_text(text)
 
-    for line in opening_text.splitlines():
+    lines = [line for line in opening_text.splitlines() if line.strip()]
+
+    for line in lines:
+        if "," in line or "@" in line or any(character.isdigit() for character in line):
+            continue
+
         name = clean_name(line)
 
-        if name and name == name.upper() and valid_name(name):
+        if not name or not valid_name(name):
+            continue
+
+        words = name.split()
+        is_uppercase = name == name.upper()
+        if is_uppercase:
             return name, line.strip(), "High"
+
+    if lines:
+        first_line = lines[0]
+
+        if not any(character.isdigit() for character in first_line):
+            name = clean_name(first_line)
+            words = name.split()
+            is_title_case = all(word[0].isupper() for word in words if word)
+
+            if is_title_case and valid_name(name):
+                return name, first_line.strip(), "High"
 
     return "", "", "Low"
 
