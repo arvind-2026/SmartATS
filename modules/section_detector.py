@@ -5,6 +5,8 @@ def normalise_heading(line):
     """Prepare one line for comparison with known section headings."""
 
     heading = line.strip().lower()
+    heading = heading.strip(config.SECTION_HEADING_DECORATION_CHARACTERS)
+    heading = heading.strip()
     heading = heading.rstrip(":")
 
     return heading.strip()

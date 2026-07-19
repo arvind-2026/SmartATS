@@ -1,0 +1,14 @@
+Farhan Ali
+Web Content Assistant
++91 92000 30004 | farhan.ali@example.com | Bhopal, India
+
+I am an early-career web content assistant with approximately one year of internship and freelance experience. My regular work involves updating existing pages, checking links and making small HTML and CSS corrections in a content management system.
+
+From July 2025 to June 2026, I worked with Central Media Services and prepared webpage content supplied by editors. I adjusted simple page layouts for smaller screens and used basic JavaScript snippets for form messages. Most technical decisions were handled by the development team.
+
+For a personal project, I created a four-page travel information website using HTML and CSS. I added a small image gallery and wrote short descriptions for each location. The project helped me learn basic page structure and visual consistency.
+
+I completed a B.A. in Mass Communication from Barkatullah University in 2025. I am taking introductory online courses to understand modern web-development workflows.
+
+My strengths are writing, careful proofreading and communication. I speak English, Hindi and Urdu.
+
