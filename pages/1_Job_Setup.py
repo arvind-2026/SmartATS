@@ -1,6 +1,7 @@
 import streamlit as st
 
 import config
+from modules.csv_manager import load_jobs
 from modules.csv_manager import save_job
 from modules.id_generator import create_job_id
 
@@ -51,6 +52,31 @@ def check_job_form(job_title, job_description, required_skills, weights):
 
 st.title("Job Setup")
 st.write("Enter the requirements that will be used to screen every candidate fairly.")
+
+saved_jobs = load_jobs()
+
+if saved_jobs:
+    st.subheader("Open a saved job")
+    saved_job_ids = [job["job_id"] for job in saved_jobs]
+    selected_job_id = st.selectbox("Saved jobs", saved_job_ids)
+    selected_job = next(
+        job for job in saved_jobs if job["job_id"] == selected_job_id
+    )
+    st.write(selected_job["job_title"])
+
+    if st.button("Use selected job"):
+        st.session_state["current_job"] = selected_job
+        st.success("Current job set to " + selected_job["job_id"] + ".")
+
+if "current_job" in st.session_state:
+    st.info(
+        "Current job: "
+        + st.session_state["current_job"]["job_id"]
+        + " — "
+        + st.session_state["current_job"]["job_title"]
+    )
+
+st.subheader("Create a new job")
 
 with st.form("job_setup_form"):
     job_title = st.text_input("Job title")
@@ -157,4 +183,3 @@ if save_button:
         save_job(job)
         st.session_state["current_job"] = job
         st.success("Job " + job["job_id"] + " saved successfully.")
-

@@ -356,6 +356,15 @@ SEMANTIC_EVIDENCE_CSV_HEADERS = [
     "similarity",
 ]
 
+HR_REVIEW_CSV_HEADERS = [
+    "candidate_id",
+    "review_status",
+    "hr_notes",
+    "reviewed_at",
+]
+
+REVIEW_DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+
 
 # User messages
 RESPONSIBLE_AI_MESSAGE = (

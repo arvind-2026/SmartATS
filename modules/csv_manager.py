@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 
 import config
 
@@ -40,8 +41,32 @@ def load_jobs():
         reader = csv.DictReader(file)
 
         for row in reader:
-            if row.get("job_id"):
-                jobs.append(row)
+            if not row.get("job_id"):
+                continue
+
+            row["required_skills"] = convert_text_to_list(
+                row.get("required_skills", "")
+            )
+            row["preferred_skills"] = convert_text_to_list(
+                row.get("preferred_skills", "")
+            )
+
+            try:
+                row["required_experience"] = float(
+                    row.get("required_experience", 0)
+                )
+            except ValueError:
+                row["required_experience"] = 0
+
+            for component in config.SCORE_COMPONENTS:
+                weight_key = component["weight_key"]
+
+                try:
+                    row[weight_key] = int(float(row.get(weight_key, 0)))
+                except ValueError:
+                    row[weight_key] = 0
+
+            jobs.append(row)
 
     return jobs
 
@@ -216,3 +241,100 @@ def load_candidates():
             candidates.append(row)
 
     return candidates
+
+
+def load_candidate_score_details(candidate_id):
+    """Load saved component calculations for one candidate."""
+
+    details = []
+
+    if not config.SCORE_DETAILS_FILE.exists():
+        return details
+
+    with open(
+        config.SCORE_DETAILS_FILE,
+        "r",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            if row.get("candidate_id") == candidate_id:
+                details.append(row)
+
+    return details
+
+
+def load_candidate_semantic_evidence(candidate_id):
+    """Load saved semantic evidence for one candidate."""
+
+    evidence_items = []
+
+    if not config.SEMANTIC_EVIDENCE_FILE.exists():
+        return evidence_items
+
+    with open(
+        config.SEMANTIC_EVIDENCE_FILE,
+        "r",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            if row.get("candidate_id") == candidate_id:
+                evidence_items.append(row)
+
+    return evidence_items
+
+
+def update_candidate_review(candidate_id, review_status, hr_notes):
+    """Update a candidate and append a timestamped HR review record."""
+
+    if not config.CANDIDATES_FILE.exists():
+        return False
+
+    with open(
+        config.CANDIDATES_FILE,
+        "r",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        reader = csv.DictReader(file)
+        rows = list(reader)
+
+    candidate_found = False
+
+    for row in rows:
+        if row.get("candidate_id") == candidate_id:
+            row["review_status"] = review_status
+            row["hr_notes"] = hr_notes
+            candidate_found = True
+
+    if not candidate_found:
+        return False
+
+    with open(
+        config.CANDIDATES_FILE,
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        writer = csv.DictWriter(file, fieldnames=config.CANDIDATE_CSV_HEADERS)
+        writer.writeheader()
+        writer.writerows(rows)
+
+    review_row = {
+        "candidate_id": candidate_id,
+        "review_status": review_status,
+        "hr_notes": hr_notes,
+        "reviewed_at": datetime.now().strftime(config.REVIEW_DATETIME_FORMAT),
+    }
+    append_dictionary(
+        config.HR_REVIEWS_FILE,
+        config.HR_REVIEW_CSV_HEADERS,
+        review_row,
+    )
+
+    return True
