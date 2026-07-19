@@ -50,6 +50,9 @@ def detect_sections(text):
         clean_line = line.strip()
 
         if not clean_line:
+            if current_section and sections.get(current_section):
+                if sections[current_section][-1] != "":
+                    sections[current_section].append("")
             continue
 
         section_name = find_section_name(clean_line)
@@ -102,4 +105,3 @@ def detect_sections(text):
         "detected_headings": detected_headings,
         "uses_paragraph_analysis": len(detected_headings) == 0,
     }
-

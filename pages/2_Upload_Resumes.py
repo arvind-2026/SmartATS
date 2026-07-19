@@ -5,6 +5,7 @@ from modules.education_matcher import match_education
 from modules.experience_matcher import match_experience
 from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
+from modules.project_matcher import match_projects
 from modules.resume_extractor import extract_resume_text
 from modules.section_detector import detect_sections
 from modules.semantic_matcher import load_sbert_model
@@ -216,6 +217,19 @@ else:
                             )
                             st.session_state[semantic_key] = semantic_result
 
+                            project_text = section_result["sections"].get(
+                                "projects",
+                                "",
+                            )
+                            project_result = match_projects(
+                                current_job["job_description"],
+                                current_job["required_skills"],
+                                project_text,
+                                model,
+                            )
+                            project_key = "project_result_" + result["file_name"]
+                            st.session_state[project_key] = project_result
+
                     if semantic_key in st.session_state:
                         semantic_result = st.session_state[semantic_key]
                         result["semantic_result"] = semantic_result
@@ -239,5 +253,50 @@ else:
                                 + "%"
                             )
                             st.divider()
+
+                    project_key = "project_result_" + result["file_name"]
+
+                    if project_key in st.session_state:
+                        project_result = st.session_state[project_key]
+                        result["project_result"] = project_result
+                        st.markdown("#### Related project evidence")
+                        st.write(
+                            "Project match: "
+                            + str(project_result["percentage"])
+                            + "%"
+                        )
+                        st.write(
+                            "Project relevance: "
+                            + str(project_result["relevance_percentage"])
+                            + "%"
+                        )
+                        st.write(
+                            "Required technologies used in projects: "
+                            + str(project_result["technology_percentage"])
+                            + "%"
+                        )
+
+                        if project_result["matched_technologies"]:
+                            st.success(
+                                "Matched project technologies: "
+                                + ", ".join(
+                                    project_result["matched_technologies"]
+                                )
+                            )
+
+                        for evidence in project_result["relevance_evidence"]:
+                            st.write(
+                                "**Project evidence:** "
+                                + evidence["project_evidence"]
+                            )
+                            st.caption(
+                                evidence["label"]
+                                + " relevance — "
+                                + str(evidence["similarity"])
+                                + "%"
+                            )
+
+                        if not project_result["relevance_evidence"]:
+                            st.info(project_result["message"])
                 else:
                     st.error(result["message"])
