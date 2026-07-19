@@ -6,4 +6,4 @@ python-docx
 pandas
 matplotlib
 pytest
-
+spacy

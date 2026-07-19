@@ -54,6 +54,27 @@ MAXIMUM_BLANK_LINES = 1
 
 # SBERT settings
 SBERT_MODEL_NAME = "all-MiniLM-L6-v2"
+NAME_NER_MODEL = "en_core_web_sm"
+PERSON_ENTITY_LABEL = "PERSON"
+NAME_SCAN_LINE_LIMIT = 8
+NAME_SCAN_CHARACTER_LIMIT = 500
+MINIMUM_NAME_WORDS = 2
+MAXIMUM_NAME_WORDS = 5
+MINIMUM_PHONE_DIGITS = 7
+MAXIMUM_PHONE_DIGITS = 15
+CONTACT_LINE_LABELS = ["phone", "mobile", "contact", "tel", "cell"]
+CONTACT_SEGMENT_SEPARATORS = ["•", "●", "▪", "|"]
+NAME_ROLE_WORDS = [
+    "developer",
+    "engineer",
+    "manager",
+    "analyst",
+    "designer",
+    "consultant",
+    "intern",
+    "junior",
+    "senior",
+]
 NO_MATCH_LIMIT = 0.40
 WEAK_MATCH_LIMIT = 0.60
 STRONG_MATCH_LIMIT = 0.75
@@ -201,6 +222,8 @@ SECTION_HEADINGS = {
 # Job form settings
 JOB_ID_PREFIX = "JOB"
 JOB_ID_DIGITS = 3
+CANDIDATE_ID_PREFIX = "CAN"
+CANDIDATE_ID_DIGITS = 3
 MINIMUM_JOB_DESCRIPTION_LENGTH = 50
 SKILL_SEPARATOR = ","
 EVIDENCE_SENTENCE_SEPARATORS = ["\n", ".", ";"]
@@ -264,6 +287,42 @@ JOB_CSV_HEADERS = [
     "education_weight",
 ]
 
+CANDIDATE_CSV_HEADERS = [
+    "candidate_id",
+    "job_id",
+    "candidate_name",
+    "candidate_email",
+    "candidate_phone",
+    "file_name",
+    "semantic_score",
+    "skill_score",
+    "project_score",
+    "experience_score",
+    "education_score",
+    "overall_score",
+    "matched_skills",
+    "missing_skills",
+    "extraction_quality",
+    "review_status",
+    "hr_notes",
+]
+
+SCORE_DETAIL_CSV_HEADERS = [
+    "candidate_id",
+    "component",
+    "match_percentage",
+    "weight",
+    "points_awarded",
+    "calculation",
+]
+
+SEMANTIC_EVIDENCE_CSV_HEADERS = [
+    "candidate_id",
+    "job_requirement",
+    "resume_evidence",
+    "similarity",
+]
+
 
 # User messages
 RESPONSIBLE_AI_MESSAGE = (
@@ -279,3 +338,6 @@ TOO_MANY_FILES_MESSAGE = "Too many resumes were uploaded at one time."
 PASSWORD_FILE_MESSAGE = "The PDF is password-protected. Please upload an unlocked copy."
 EXTRACTION_SUCCESS_MESSAGE = "Resume text extracted successfully."
 MODEL_LOADING_MESSAGE = "Loading the SBERT model and comparing semantic meaning..."
+NAME_MODEL_MESSAGE = (
+    "The name NER model is unavailable. A low-confidence fallback name was used."
+)

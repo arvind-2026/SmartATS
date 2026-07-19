@@ -1,11 +1,18 @@
 import streamlit as st
 
 import config
+from modules.contact_extractor import extract_candidate_contact
+from modules.contact_extractor import load_name_ner_model
+from modules.csv_manager import candidate_already_saved
+from modules.csv_manager import save_candidate
+from modules.csv_manager import save_score_details
+from modules.csv_manager import save_semantic_evidence
 from modules.education_matcher import match_education
 from modules.explanation_builder import build_score_explanation
 from modules.experience_matcher import match_experience
 from modules.file_validator import validate_file
 from modules.file_validator import validate_file_count
+from modules.id_generator import create_candidate_id
 from modules.project_matcher import match_projects
 from modules.resume_extractor import extract_resume_text
 from modules.score_calculator import calculate_final_score
@@ -25,6 +32,13 @@ def get_cached_sbert_model():
     """Load SBERT once and reuse it for all uploaded resumes."""
 
     return load_sbert_model()
+
+
+@st.cache_resource
+def get_cached_name_ner_model():
+    """Load the candidate-name NER model once."""
+
+    return load_name_ner_model()
 
 if "current_job" not in st.session_state:
     st.warning("Create or select a job before uploading resumes.")
@@ -349,6 +363,106 @@ else:
                                 + str(score_result["overall_score"])
                             )
                             st.caption(config.RESPONSIBLE_AI_MESSAGE)
+
+                            st.markdown("#### Save candidate result")
+                            try:
+                                name_model = get_cached_name_ner_model()
+                            except (ImportError, OSError):
+                                name_model = None
+
+                            contact_result = extract_candidate_contact(
+                                result["text"],
+                                result["file_name"],
+                                name_model,
+                            )
+
+                            if contact_result["name_confidence"] == "Low":
+                                st.warning(config.NAME_MODEL_MESSAGE)
+
+                            st.caption(
+                                "Detected name confidence: "
+                                + contact_result["name_confidence"]
+                                + " — Evidence: "
+                                + contact_result["name_evidence"]
+                            )
+                            candidate_name = st.text_input(
+                                "Candidate name",
+                                value=contact_result["name"],
+                                key="candidate_name_" + result["file_name"],
+                            )
+                            candidate_email = st.text_input(
+                                "Candidate email",
+                                value=contact_result["email"],
+                                key="candidate_email_" + result["file_name"],
+                            )
+                            candidate_phone = st.text_input(
+                                "Candidate contact number",
+                                value=contact_result["phone"],
+                                key="candidate_phone_" + result["file_name"],
+                            )
+                            review_status = st.selectbox(
+                                "Review status",
+                                config.REVIEW_STATUSES,
+                                key="review_status_" + result["file_name"],
+                            )
+                            hr_notes = st.text_area(
+                                "HR notes",
+                                key="hr_notes_" + result["file_name"],
+                            )
+                            save_result_button = st.button(
+                                "Save candidate result",
+                                key="save_result_" + result["file_name"],
+                            )
+
+                            if save_result_button:
+                                already_saved = candidate_already_saved(
+                                    current_job["job_id"],
+                                    result["file_name"],
+                                )
+
+                                if already_saved:
+                                    st.warning(
+                                        "This resume is already saved for the current job."
+                                    )
+                                elif not candidate_name.strip():
+                                    st.error("Please enter a candidate name.")
+                                else:
+                                    candidate_id = create_candidate_id()
+                                    required_skills = result["skill_result"]["required"]
+                                    candidate = {
+                                        "candidate_id": candidate_id,
+                                        "job_id": current_job["job_id"],
+                                        "candidate_name": candidate_name.strip(),
+                                        "candidate_email": candidate_email.strip(),
+                                        "candidate_phone": candidate_phone.strip(),
+                                        "file_name": result["file_name"],
+                                        "semantic_score": semantic_result["percentage"],
+                                        "skill_score": required_skills["percentage"],
+                                        "project_score": project_result["percentage"],
+                                        "experience_score": experience_result["percentage"],
+                                        "education_score": education_result["percentage"],
+                                        "overall_score": score_result["overall_score"],
+                                        "matched_skills": required_skills["matched_skills"],
+                                        "missing_skills": required_skills["missing_skills"],
+                                        "extraction_quality": result["quality"],
+                                        "review_status": review_status,
+                                        "hr_notes": hr_notes.strip(),
+                                    }
+                                    save_candidate(candidate)
+                                    save_score_details(
+                                        candidate_id,
+                                        score_result,
+                                        explanations,
+                                    )
+                                    save_semantic_evidence(
+                                        candidate_id,
+                                        semantic_result["evidence"],
+                                    )
+                                    st.success(
+                                        "Candidate "
+                                        + candidate_id
+                                        + " saved successfully."
+                                    )
                         else:
                             st.error(score_result["message"])
                 else:
