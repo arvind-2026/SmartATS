@@ -1,0 +1,29 @@
+===============================================================================
+                               NISHA REDDY
+                         REACT UI DEVELOPER
+===============================================================================
+Email : nisha.reddy@example.com
+Phone : +91 92000 30002
+City  : Chennai, India
+
+[ PROFILE ]
+React developer with 2 years of experience creating responsive web applications with JavaScript, HTML and CSS.
+
+[ SKILL TOOLBOX ]
+HTML | CSS | JavaScript | React | Git | REST API | Responsive Design | Jest | Figma
+
+[ WORK EXPERIENCE ]
+Junior React Developer - BlueOrbit Software
+Jul 2024 - Present
+* Developed React screens and reusable user-interface components.
+* Converted Figma layouts into responsive HTML and CSS pages.
+* Integrated REST API data and collaborated through Git branches.
+* Wrote Jest tests for form validation and reusable components.
+* Fixed browser compatibility and accessibility issues.
+
+[ PROJECTS ]
+Service Booking Portal
+Built a mobile-friendly React portal using JavaScript, HTML and CSS. Connected booking forms to a REST API and managed the source code with Git.
+
+[ EDUCATION ]
+B.E. Information Technology - Anna University, 2024

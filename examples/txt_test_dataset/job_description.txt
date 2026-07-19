@@ -1,0 +1,34 @@
+JUNIOR FRONTEND DEVELOPER
+
+We are looking for a Junior Frontend Developer to build accessible, responsive
+and user-friendly web interfaces with a modern development workflow.
+
+KEY RESPONSIBILITIES
+
+- Build web pages and reusable components using HTML, CSS and JavaScript.
+- Develop interactive user interfaces with React.
+- Connect frontend applications to REST APIs.
+- Apply responsive design for mobile, tablet and desktop screens.
+- Use Git for version control and team collaboration.
+- Write frontend tests using Jest.
+- Fix browser compatibility and user-interface defects.
+- Document components and technical decisions.
+
+REQUIRED SKILLS
+
+HTML, CSS, JavaScript, React, Git, REST API, Responsive Design, Jest
+
+PREFERRED SKILLS
+
+TypeScript, Redux, Figma
+
+EXPERIENCE
+
+At least 2 years of frontend development or closely related web-development
+experience. Strong internships and substantial projects may support junior applicants.
+
+EDUCATION
+
+Bachelor's degree in Computer Science, Information Technology, Software Engineering
+or a related technical field.
+

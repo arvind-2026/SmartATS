@@ -1,0 +1,31 @@
+DEV SINGH
+Junior Web Developer
++91 92000 30003 | dev.singh@example.com | Jaipur, India
+
+CAREER OBJECTIVE
+Junior web developer with one year of internship experience creating small websites and interactive pages.
+
+TECHNICAL PROFILE
+------------------------------------------------------------
+Area                 Knowledge
+------------------------------------------------------------
+Web                  HTML, CSS, JavaScript
+Library              React basics
+Collaboration        Git, GitHub
+Design               Responsive Design
+Other                REST API basics
+------------------------------------------------------------
+
+EXPERIENCE
+Web Development Intern | WebNest Academy | Jun 2025 - Jun 2026
+- Created responsive HTML and CSS pages from supplied designs.
+- Added JavaScript form validation and basic React components.
+- Retrieved sample content from a REST API and saved work in Git.
+
+ACADEMIC PROJECTS
+College Event Website
+Created a responsive event website with HTML, CSS and JavaScript. Added a small React schedule component and stored the project in Git.
+
+EDUCATION
+BCA - University of Rajasthan, 2025
+

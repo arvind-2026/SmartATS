@@ -1,0 +1,27 @@
+ARJUN MALHOTRA
+FRONTEND DEVELOPER
++91 92000 30001 | arjun.malhotra@example.com | New Delhi, India
+
+PROFESSIONAL SUMMARY
+Frontend developer with 3 years of experience building accessible and responsive web interfaces using HTML, CSS, JavaScript and React.
+
+TECHNICAL SKILLS
+Languages: HTML, CSS, JavaScript, TypeScript
+Libraries: React, Redux
+Testing and tools: Jest, Git, Figma
+Practices: REST API integration, Responsive Design, accessibility
+
+PROFESSIONAL EXPERIENCE
+Frontend Developer - PixelCraft Technologies | Jan 2023 - Present
+- Built reusable React components with HTML, CSS and JavaScript for customer portals.
+- Connected interfaces to REST API services and used Redux for application state.
+- Created Responsive Design layouts and wrote Jest tests for important components.
+- Used Git pull requests and Figma designs to collaborate with the product team.
+
+PROJECTS
+Accessible Shopping Interface
+Developed a responsive React shopping interface using HTML, CSS, JavaScript and Redux. Integrated a REST API, added Jest tests and documented components in Git.
+
+EDUCATION
+B.Tech. Computer Science - Delhi Technical Institute, 2022
+

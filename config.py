@@ -199,6 +199,7 @@ REVIEW_STATUSES = [
 
 
 # Resume section names and common heading alternatives
+SECTION_HEADING_DECORATION_CHARACTERS = "[]=-_*#"
 SECTION_HEADINGS = {
     "summary": [
         "summary",
@@ -212,6 +213,7 @@ SECTION_HEADINGS = {
         "technical skills",
         "core skills",
         "key skills",
+        "skill toolbox",
         "competencies",
     ],
     "experience": [
